@@ -1,95 +1,108 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="UTF-8" />
-<title>Generatore automatico di scoop su Garlasco</title>
+  <meta charset="UTF-8" />
+  <title>Generatore automatico di scoop su Garlasco</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&family=Special+Elite&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&family=Special+Elite&display=swap" rel="stylesheet">
 
-<style>
-  html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    background: url("sfondo.png") no-repeat center center fixed;
-    background-size: cover;
-    color: #eee;
-    overflow: hidden;
-  }
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background: url("sfondo.png") no-repeat center center fixed; /* Assicurati di avere l'immagine o togli questa riga */
+      background-color: #111; /* Fallback color */
+      background-size: cover;
+      color: #eee;
+      overflow: hidden;
+    }
 
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.65);
-  }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.65);
+    }
 
-  body * {
-    position: relative;
-    z-index: 1;
-  }
+    body * {
+      position: relative;
+      z-index: 1;
+    }
 
-  h1 {
-    text-align: center;
-    margin-top: 50px;
-    font-family: "Libre Baskerville", serif;
-    font-size: 48px;
-    letter-spacing: 1.2px;
-  }
+    h1 {
+      text-align: center;
+      margin-top: 50px;
+      font-family: "Libre Baskerville", serif;
+      font-size: 48px;
+      letter-spacing: 1.2px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+      padding: 0 20px;
+    }
 
-  #main {
-    height: calc(100% - 180px);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-  }
+    #main {
+      height: calc(100% - 180px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 0 20px;
+      text-align: center;
+    }
 
-  .slot {
-    font-family: "Special Elite", monospace;
-    font-size: 32px;
-    min-height: 40px;
-    letter-spacing: 0.5px;
-    transition: color 0.8s ease, text-shadow 0.8s ease;
-  }
+    .slot {
+      font-family: "Special Elite", monospace;
+      font-size: 28px;
+      min-height: 40px;
+      letter-spacing: 0.5px;
+      transition: color 0.8s ease, text-shadow 0.8s ease;
+      max-width: 90%;
+    }
 
-  .slot.final {
-    color: darkred;
-    text-shadow: 0 0 14px #700;
-  }
+    .slot.final {
+      color: #ff4444;
+      text-shadow: 0 0 14px #900;
+    }
 
-  #generate {
-    margin-top: 12px;
-    padding: 26px 70px;
-    font-size: 22px;
-    font-family: "Special Elite", monospace;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    background: transparent;
-    color: #eee;
-    border: 3px solid #aaa;
-    cursor: pointer;
-    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-  }
+    #generate {
+      margin-top: 20px;
+      padding: 20px 50px;
+      font-size: 22px;
+      font-family: "Special Elite", monospace;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      background: rgba(0,0,0,0.3);
+      color: #eee;
+      border: 3px solid #aaa;
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, background 0.25s;
+    }
 
-  #generate:hover {
-    border-color: #fff;
-    box-shadow: 0 0 20px rgba(255,255,255,0.12);
-    transform: scale(1.04);
-  }
+    #generate:hover {
+      border-color: #fff;
+      background: rgba(255,255,255,0.1);
+      box-shadow: 0 0 20px rgba(255,255,255,0.12);
+      transform: scale(1.04);
+    }
 
-  #signature {
-    position: fixed;
-    bottom: 20px;
-    right: 25px;
-    font-family: "Libre Baskerville", serif;
-    font-size: 20px;
-    color: #ddd;
-    letter-spacing: 1px;
-  }
-</style>
+    #signature {
+      position: fixed;
+      bottom: 20px;
+      right: 25px;
+      font-family: "Libre Baskerville", serif;
+      font-size: 16px;
+      color: #888;
+      letter-spacing: 1px;
+    }
+
+    @media (max-width: 768px) {
+      h1 { font-size: 32px; margin-top: 30px; }
+      .slot { font-size: 18px; min-height: 24px; }
+      #generate { padding: 15px 30px; font-size: 18px; }
+    }
+  </style>
 </head>
 
 <body>
@@ -106,29 +119,70 @@
     <button id="generate">GENERA UNO SCOOP</button>
   </div>
 
-  <div id="signature">Davide*Kra</div>
+  <div id="signature">Davide*Kra (Optimized)</div>
 
 <script>
 /* =========================
-   STATO GRAMMATICALE
-   =========================
-   - sourceNumber guida la 2ª parte
-   - subjectGender + subjectNumber guidano 4ª e 6ª parte
-*/
+   UTILITIES GRAMMATICALI
+   ========================= */
+
+// Funzione per accordare aggettivi/participi che finiscono con un placeholder speciale "|o|"
+// Esempio: "colpit|o|" diventa colpito, colpita, colpiti, colpite
+function agree(text, gender, number) {
+  const isF = (gender === 'f');
+  const isPl = (number === 'pl');
+
+  let ending = 'o';
+  if (isPl) {
+    ending = isF ? 'e' : 'i';
+  } else {
+    ending = isF ? 'a' : 'o';
+  }
+
+  return text.replace(/\|o\|/g, ending);
+}
+
+// Accorda anche participi “normali” presenti in coda/frase extra (es. "ma non riconosciuto")
+function agreeParticiplesInExtra(extra, gender, number) {
+  if (!extra) return extra;
+
+  const map = {
+    "visto":         { m:{sg:"visto", pl:"visti"},       f:{sg:"vista", pl:"viste"} },
+    "notato":        { m:{sg:"notato", pl:"notati"},     f:{sg:"notata", pl:"notate"} },
+    "intravisto":    { m:{sg:"intravisto", pl:"intravisti"}, f:{sg:"intravista", pl:"intraviste"} },
+    "avvistato":     { m:{sg:"avvistato", pl:"avvistati"}, f:{sg:"avvistata", pl:"avvistate"} },
+    "comparso":      { m:{sg:"comparso", pl:"comparsi"}, f:{sg:"comparsa", pl:"comparse"} },
+    "riconosciuto":  { m:{sg:"riconosciuto", pl:"riconosciuti"}, f:{sg:"riconosciuta", pl:"riconosciute"} }
+  };
+
+  // Sostituisce le parole note mantenendo il resto invariato
+  return extra.replace(/\b(visto|notato|intravisto|avvistato|comparso|riconosciuto)\b/gi, (m) => {
+    const key = m.toLowerCase();
+    const rep = map[key]?.[gender]?.[number];
+    return rep ?? m;
+  });
+}
+
+/* =========================
+   STATO GLOBALE
+   ========================= */
 let sourceNumber = "sg";
+let sourceGender = "m";
 let subjectGender = "m";
 let subjectNumber = "sg";
 
 /* =========================
-   1) PRIMA PARTE (FONTE) — TUTTO DENTRO + NUOVE AGGIUNTE
+   1) PRIMA PARTE (FONTE)
    ========================= */
 const firstParts = [
-  // originali
   { text: "Flaviu Savu", gender: "m", number: "sg" },
   { text: "La setta dei 9 angoli", gender: "f", number: "sg" },
   { text: "Il trafficante di organi umani", gender: "m", number: "sg" },
   { text: "Un super-testimone oculare", gender: "m", number: "sg" },
   { text: "Voci dalla procura", gender: "f", number: "pl" },
+  { text: "Le voci che sento nella mia testa", gender: "f", number: "pl" },
+  { text: "Una fonte che mi sto inventando in questo momento", gender: "f", number: "sg" },
+  { text: "Un bugiardo patologico", gender: "m", number: "sg" },
   { text: "Un testimone che vuole rimanere anonimo", gender: "m", number: "sg" },
   { text: "Una testimone che vuole rimanere anonima", gender: "f", number: "sg" },
   { text: "Un bastione carico carico di testimoni inattendibili", gender: "m", number: "pl" },
@@ -137,21 +191,17 @@ const firstParts = [
   { text: "Lo scemo del villaggio", gender: "m", number: "sg" },
   { text: "La pettegola del paese", gender: "f", number: "sg" },
   { text: "Un mitomane certificato", gender: "m", number: "sg" },
-  { text: "Un muto", gender: "m", number: "sg" },  
+  { text: "Un muto", gender: "m", number: "sg" },
   { text: "L'avvocato Gallo", gender: "m", number: "sg" },
   { text: "Luigi Grimaldi", gender: "m", number: "sg" },
   { text: "Il settimanale \"Giallo\"", gender: "m", number: "sg" },
   { text: "Federica Panicucci", gender: "f", number: "sg" },
   { text: "La giornalista Rita Cavallaro", gender: "f", number: "sg" },
-
-  // aggiunte richieste precedenti
   { text: "La Youtuber Bugalalla", gender: "f", number: "sg" },
   { text: "Uno Youtuber a caso", gender: "m", number: "sg" },
   { text: "Fabrizio Corona", gender: "m", number: "sg" },
   { text: "Un blogger di alcuna credibilità", gender: "m", number: "sg" },
   { text: "Un cretino a caso", gender: "m", number: "sg" },
-
-  // nuove aggiunte “rilancio”
   { text: "Il Procuratore Napoleone", gender: "m", number: "sg" },
   { text: "Il Sostituto Civardi", gender: "m", number: "sg" },
   { text: "Un agente della Moscova", gender: "m", number: "sg" },
@@ -159,18 +209,21 @@ const firstParts = [
   { text: "Un profiler della CIA", gender: "m", number: "sg" },
   { text: "Un criminologo in disarmo", gender: "m", number: "sg" },
   { text: "Un lettore di gialli sotto l'ombrellone", gender: "m", number: "sg" },
-  { text: "Un esperto di tutt'altra materia rispetto a ciò di cui parla", gender: "m", number: "sg" }
+  { text: "Un esperto di tutt'altra materia", gender: "m", number: "sg" }
 ];
 
 /* =========================
-   2) SECONDA PARTE (VERBO) – 17+17 (COMPLETA)
+   2) SECONDA PARTE (VERBO)
    ========================= */
-const secondParts = {
+const secondTemplates = {
   sg: [
     "ha affermato che",
     "dice che",
+    "potrebbe aver detto che",
+    "forse, una volta, ha detto che",
+    "parlando nel sonno ha affermato che",
     "pare abbia detto che",
-    "secondo voci non confermate dice che",
+    "secondo voci non confermate, dice che",
     "potrebbe aver detto che",
     "secondo indiscrezioni ha detto che",
     "ha sussurrato che",
@@ -197,13 +250,12 @@ const secondParts = {
     "dopo aver mangiato cibo avariato avrebbe detto che",
     "dopo un sogno premonitore avrebbe detto che",
     "dopo aver bevuto una pozione magica avrebbe detto che",
-    "dopo essere stato colpito da un fulmine avrebbe detto che",
+    "dopo essere stat|o| colpit|o| da un fulmine avrebbe detto che",
     "dopo un'esperienza di pre-morte avrebbe detto che",
     "dopo aver partecipato a un rituale occulto avrebbe detto che",
     "dopo aver parlato con un muto ha riferito che",
-    "dopo essersi scontrato forte contro un muro avrebbe detto che",
+    "dopo essersi scontrat|o| forte contro un muro avrebbe detto che",
     "dopo aver preso un fungo allucinogeno avrebbe detto che"
-
   ],
   pl: [
     "hanno affermato che",
@@ -235,14 +287,17 @@ const secondParts = {
     "dopo un viaggio astrale avrebbero detto che",
     "dopo aver mangiato cibo avariato avrebbero detto che",
     "dopo un sogno premonitore avrebbero detto che",
-    "dopo essere caduti in una pozione magica avrebbero detto che",
-    "dopo essere stati colpiti da un fulmine avrebbero detto che"
+    "dopo essere cadut|o| in una pozione magica avrebbero detto che",
+    "dopo essere stat|o| colpit|o| da un fulmine avrebbero detto che"
   ]
 };
 
+function getSecondParts(g, n) {
+  return secondTemplates[n].map(t => agree(t, g, n));
+}
+
 /* =========================
-   3) TERZA PARTE (SOGGETTO) – 18 (COMPLETA)
-   - Nota: "l'intera famiglia" = FEMMINILE SINGOLARE (accordo grammaticale)
+   3) TERZA PARTE (SOGGETTO)
    ========================= */
 const thirdParts = [
   { text: "Michele Bertani", gender: "m", number: "sg" },
@@ -250,6 +305,9 @@ const thirdParts = [
   { text: "Ermanno Cappa", gender: "m", number: "sg" },
   { text: "Stefania Cappa", gender: "f", number: "sg" },
   { text: "Paola Cappa", gender: "f", number: "sg" },
+  { text: "La madre delle Cappa", gender: "f", number: "sg" },
+  { text: "Una che somiglia vagamente a Paola Cappa", gender: "f", number: "sg" },
+  { text: "Una che ricorda alla lontana Stefania Cappa", gender: "f", number: "sg" },
   { text: "Giuseppe Sempio", gender: "m", number: "sg" },
   { text: "Marco Poggi", gender: "m", number: "sg" },
   { text: "Roberto Freddi", gender: "m", number: "sg" },
@@ -269,20 +327,21 @@ const thirdParts = [
   { text: "l'intera famiglia Poggi", gender: "f", number: "sg" },
   { text: "l'intera famiglia Cappa", gender: "f", number: "sg" },
   { text: "l'intera famiglia Sempio", gender: "f", number: "sg" },
-  { text: "un parente alla lontana di un cugino di terzo grado di Sempio", gender: "m", number: "sg" }
+  { text: "un parente alla lontana di Sempio", gender: "m", number: "sg" },
+  { text: "uno che, con un po' di fantasia, potrebbe essere Sempio", gender: "m", number: "sg" },
+  { text: "uno che da bambino giocava con Sempio", gender: "m", number: "sg" },
+  { text: "uno che, forse, una volta, ha salutato Sempio", gender: "m", number: "sg" },
+  { text: "uno che non è Sempio, ma noi facciamo finta di sì", gender: "m", number: "sg" }
 ];
 
 /* =========================
-   4) QUARTA PARTE (AVVISTAMENTO) – 24, declinate per genere/numero
+   4) QUARTA PARTE (AVVISTAMENTO)
    ========================= */
 const fourthTemplates = [
-  // 1-4 (tue)
   { type: "PP", base: "essere visto" },
   { type: "PP_MODAL", base: "essere notato" },
   { type: "PP_PARE", base: "essere intravisto" },
   { type: "PP_FORSE_CODA", base: "essere visto con la coda dell'occhio" },
-
-  // 5-24
   { type: "PP", base: "essere notato" },
   { type: "PP", base: "essere visto di sfuggita" },
   { type: "PARE_PER_ATTIMO" },
@@ -308,21 +367,22 @@ const fourthTemplates = [
 function ppForms(g, n, verbInf, extra = "") {
   const isF = (g === "f");
   const isPl = (n === "pl");
-
   const essere = isPl ? "sono" : "è";
   const stato = isPl ? (isF ? "state" : "stati") : (isF ? "stata" : "stato");
 
   const map = {
-    "visto":      { m:{sg:"visto",  pl:"visti"},  f:{sg:"vista",  pl:"viste"} },
-    "notato":     { m:{sg:"notato", pl:"notati"}, f:{sg:"notata", pl:"notate"} },
-    "intravisto": { m:{sg:"intravisto", pl:"intravisti"}, f:{sg:"intravista", pl:"intraviste"} },
-    "avvistato":  { m:{sg:"avvistato", pl:"avvistati"}, f:{sg:"avvistata", pl:"avvistate"} },
-    "comparso":   { m:{sg:"comparso", pl:"comparsi"}, f:{sg:"comparsa", pl:"comparse"} },
-    "riconosciuto": { m:{sg:"riconosciuto", pl:"riconosciuti"}, f:{sg:"riconosciuta", pl:"riconosciute"} }
+    "visto":         { m:{sg:"visto",  pl:"visti"},       f:{sg:"vista",  pl:"viste"} },
+    "notato":        { m:{sg:"notato", pl:"notati"},      f:{sg:"notata", pl:"notate"} },
+    "intravisto":    { m:{sg:"intravisto", pl:"intravisti"}, f:{sg:"intravista", pl:"intraviste"} },
+    "avvistato":     { m:{sg:"avvistato", pl:"avvistati"}, f:{sg:"avvistata", pl:"avvistate"} },
+    "comparso":      { m:{sg:"comparso", pl:"comparsi"},  f:{sg:"comparsa", pl:"comparse"} },
+    "riconosciuto":  { m:{sg:"riconosciuto", pl:"riconosciuti"}, f:{sg:"riconosciuta", pl:"riconosciute"} }
   };
 
   const part = map[verbInf]?.[g]?.[n] ?? verbInf;
-  return `${essere} ${stato} ${part}${extra ? " " + extra : ""}`;
+
+  const fixedExtra = agreeParticiplesInExtra(extra, g, n);
+  return `${essere} ${stato} ${part}${fixedExtra ? " " + fixedExtra : ""}`;
 }
 
 function objPronoun(g, n) {
@@ -371,9 +431,10 @@ function buildFourthParts(g, n) {
         break;
       }
       case "PARE_PER_ATTIMO": {
-        out.push(isPl ? "pare siano stati notati per un attimo" : "pare sia stato notato per un attimo");
-        if (isF && !isPl) out[out.length-1] = "pare sia stata notata per un attimo";
-        if (isF && isPl)  out[out.length-1] = "pare siano state notate per un attimo";
+        const map = { m:{sg:"notato", pl:"notati"}, f:{sg:"notata", pl:"notate"} };
+        const aux = isPl ? "siano" : "sia";
+        const stato = isPl ? (isF ? "state" : "stati") : (isF ? "stata" : "stato");
+        out.push(`pare ${aux} ${stato} ${map[g][n]} per un attimo`);
         break;
       }
       case "GIURA_AVERE_VISTO": {
@@ -381,9 +442,10 @@ function buildFourthParts(g, n) {
         break;
       }
       case "SECONDO_ALCUNI": {
-        out.push(isPl ? "secondo alcuni sarebbero stati visti" : "secondo alcuni sarebbe stato visto");
-        if (isF && !isPl) out[out.length-1] = "secondo alcuni sarebbe stata vista";
-        if (isF && isPl)  out[out.length-1] = "secondo alcuni sarebbero state viste";
+        const stato = isPl ? (isF ? "state" : "stati") : (isF ? "stata" : "stato");
+        const aux = isPl ? "sarebbero" : "sarebbe";
+        const map = { m:{sg:"visto", pl:"visti"}, f:{sg:"vista", pl:"viste"} };
+        out.push(`secondo alcuni ${aux} ${stato} ${map[g][n]}`);
         break;
       }
       case "PARE_PRESENTE": {
@@ -391,7 +453,8 @@ function buildFourthParts(g, n) {
         break;
       }
       case "DICE_AVERE_INTRAVISTO": {
-        out.push(`qualcuno dice di aver${p} intravist${isPl ? (isF ? "e" : "i") : (isF ? "a" : "o")}`);
+        const part = isPl ? (isF ? "intraviste" : "intravisti") : (isF ? "intravista" : "intravisto");
+        out.push(`qualcuno dice di aver${p} ${part}`);
         break;
       }
       case "PARE_LI": {
@@ -399,23 +462,26 @@ function buildFourthParts(g, n) {
         break;
       }
       case "SECONDO_TESTIMONIANZA": {
-        out.push(isPl ? "secondo una testimonianza sarebbero stati visti" : "secondo una testimonianza sarebbe stato visto");
-        if (isF && !isPl) out[out.length-1] = "secondo una testimonianza sarebbe stata vista";
-        if (isF && isPl)  out[out.length-1] = "secondo una testimonianza sarebbero state viste";
+        const stato = isPl ? (isF ? "state" : "stati") : (isF ? "stata" : "stato");
+        const aux = isPl ? "sarebbero" : "sarebbe";
+        const map = { m:{sg:"visto", pl:"visti"}, f:{sg:"vista", pl:"viste"} };
+        out.push(`secondo una testimonianza ${aux} ${stato} ${map[g][n]}`);
         break;
       }
       case "SOSTIENE_AVERE_NOTATO": {
-        out.push(`qualcuno sostiene di aver${p} notat${isPl ? (isF ? "e" : "i") : (isF ? "a" : "o")}`);
+        const part = isPl ? (isF ? "notate" : "notati") : (isF ? "notata" : "notato");
+        out.push(`qualcuno sostiene di aver${p} ${part}`);
         break;
       }
       case "PARE_PASSARE_INOSSERVATO": {
-        out.push(isPl ? "pare siano passati inosservati" : "pare sia passato inosservato");
-        if (isF && !isPl) out[out.length-1] = "pare sia passata inosservata";
-        if (isF && isPl)  out[out.length-1] = "pare siano passate inosservate";
+        const aux = isPl ? "siano" : "sia";
+        const map = { m:{sg:"passato inosservato", pl:"passati inosservati"}, f:{sg:"passata inosservata", pl:"passate inosservate"} };
+        out.push(`pare ${aux} ${map[g][n]}`);
         break;
       }
       case "AFFERMA_AVERE_VISTO": {
-        out.push(`qualcuno afferma di aver${p} visto`);
+        const part = isPl ? (isF ? "viste" : "visti") : (isF ? "vista" : "visto");
+        out.push(`qualcuno afferma di aver${p} ${part}`);
         break;
       }
       case "PARE_NEI_PARAGGI": {
@@ -423,17 +489,16 @@ function buildFourthParts(g, n) {
         break;
       }
       case "SECONDO_RICOSTRUZIONE": {
-        out.push(isPl ? "secondo una ricostruzione sarebbero stati visti" : "secondo una ricostruzione sarebbe stato visto");
-        if (isF && !isPl) out[out.length-1] = "secondo una ricostruzione sarebbe stata vista";
-        if (isF && isPl)  out[out.length-1] = "secondo una ricostruzione sarebbero state viste";
+        const stato = isPl ? (isF ? "state" : "stati") : (isF ? "stata" : "stato");
+        const aux = isPl ? "sarebbero" : "sarebbe";
+        const map = { m:{sg:"visto", pl:"visti"}, f:{sg:"vista", pl:"viste"} };
+        out.push(`secondo una ricostruzione ${aux} ${stato} ${map[g][n]}`);
         break;
       }
       case "PARE_QUALCUNO_LO_ABBIA_VISTO": {
         const aux = isPl ? "abbiano" : "abbia";
-        out.push(`pare che qualcuno ${aux} ${p} visto`);
-        if (isF && !isPl) out[out.length-1] = `pare che qualcuno ${aux} ${p} vista`;
-        if (isF && isPl)  out[out.length-1] = `pare che qualcuno ${aux} ${p} viste`;
-        if (!isF && isPl) out[out.length-1] = `pare che qualcuno ${aux} ${p} visti`;
+        const part = isPl ? (isF ? "viste" : "visti") : (isF ? "vista" : "visto");
+        out.push(`pare che qualcuno ${p} ${aux} ${part}`);
         break;
       }
       default:
@@ -444,39 +509,45 @@ function buildFourthParts(g, n) {
 }
 
 /* =========================
-   5) QUINTA PARTE (TEMPO) – 21
+   5) QUINTA PARTE (TEMPO)
    ========================= */
 const fifthParts = [
+  "esattamente alle 9:12 del mattino",
+  "alle 9:12 del mattino, ma con l'orologio fermo",
+  "alle 9:11, massimo alle 9:12, ma non di più",
+  "alle 9:12:00, orario che ricorda con precisione per puro caso",
   "proprio la sera precedente rispetto al momento in cui è avvenuto il delitto",
-  "proprio la mattina in cui è avvenuto il delitto",
+  "proprio la mattina del delitto",
   "proprio nella settimana in cui è avvenuto il delitto",
   "proprio in quell'agosto in cui è avvenuto il delitto",
   "proprio nelle stesse ore in cui è avvenuto il delitto",
   "proprio nel mese in cui è avvenuto il delitto",
   "proprio all'alba del giorno in cui è avvenuto il delitto",
-  "proprio nelle prime ore della mattina in cui è avvenuto il delitto",
-  "proprio poche ore prima del momento in cui è avvenuto il delitto",
+  "nelle prime ore della mattina in cui è avvenuto il delitto",
+  "poche ore prima del momento in cui è avvenuto il delitto",
   "proprio durante la mattinata in cui è avvenuto il delitto",
-  "proprio nelle ore immediatamente precedenti al momento in cui è avvenuto il delitto",
-  "proprio a ridosso della mattina in cui è avvenuto il delitto",
-  "proprio nella notte precedente il giorno in cui è avvenuto il delitto",
-  "proprio nelle primissime ore del giorno in cui è avvenuto il delitto",
-  "proprio in quella mattina d'agosto in cui è avvenuto il delitto",
-  "proprio nel giorno in cui è avvenuto il delitto",
-  "proprio nel periodo a cavallo del giorno in cui è avvenuto il delitto",
-  "proprio in coincidenza temporale con la mattina in cui è avvenuto il delitto",
-  "proprio poco prima dell'orario in cui è avvenuto il delitto",
-  "proprio nel periodo immediatamente precedente in cui è avvenuto il delitto",
-  "proprio in un momento compatibile con quello in cui è avvenuto il delitto",
+  "nelle ore immediatamente precedenti al momento in cui è avvenuto il delitto",
+  "a ridosso della mattina in cui è avvenuto il delitto",
+  "la notte precedente il giorno in cui è avvenuto il delitto",
+  "nelle primissime ore del giorno in cui è avvenuto il delitto",
+  "la mattina d'agosto in cui è avvenuto il delitto",
+  "il giorno in cui è avvenuto il delitto",
+  "nel periodo a cavallo del giorno in cui è avvenuto il delitto",
+  "in coincidenza temporale col delitto",
+  "poco prima dell'orario in cui è avvenuto il delitto",
+  "nel periodo immediatamente precedente a quando è avvenuto il delitto",
+  "in un momento compatibile con quando è avvenuto il delitto",
   "proprio nell'intervallo di tempo in cui è avvenuto il delitto",
-  "proprio in un arco temporale coincidente con quello in cui è avvenuto il delitto",
-  "proprio nella stessa fascia oraria in cui è avvenuto il delitto"
+  "in un arco temporale coincidente con quello in cui è avvenuto il delitto",
+  "proprio nella stessa fascia oraria in cui è avvenuto il delitto",
+  "la notte di plenilunio precedente al giorno in cui è avvenuto il delitto",
+  "proprio 46 giorni, 17 ore, 23 minuti e 12 secondi prima del momento in cui è avvenuto il delitto"
 ];
 
 /* =========================
-   6) SESTA PARTE (AZIONE) – 21+21 e FINISCE SEMPRE CON "di"
+   6) SESTA PARTE (AZIONE)
    ========================= */
-const sixthParts = {
+const sixthTemplates = {
   sg: [
     "mentre comprava",
     "mentre acquistava",
@@ -484,13 +555,13 @@ const sixthParts = {
     "mentre ordinava su Amazon",
     "proprio mentre provava a chiedere ad una commessa di avere",
     "mentre chiedeva ad un passante di comprare per lui",
-    "mentre faceva la spesa",
+    "mentre faceva la spesa comprando",
     "mentre si fermava a comprare",
     "mentre era in fila per l'acquisto di",
     "mentre cercava di comprare",
-    "mentre effettuava un acquisto di",
+    "mentre effettuava l'acquisto di",
     "mentre stava pagando",
-    "mentre era intento ad acquistare",
+    "mentre era intent|o| ad acquistare",
     "mentre provava ad acquistare",
     "mentre chiedeva insistentemente informazioni su",
     "mentre trattava con un commesso l'acquisto di",
@@ -504,13 +575,12 @@ const sixthParts = {
     "mentre stava per pagare in banconote di piccolo taglio",
     "mentre, parlando con l'accento svedese, chiedeva di comprare",
     "mentre, fingendosi un agente segreto, ordinava l'acquisto di",
-    "mentre, travestito da clown, cercava di comprare",
+    "mentre, travestit|o| da clown, cercava di comprare",
     "mentre, sotto copertura, stava per acquistare",
-    "mentre, in incognito, si informava su come comprare", 
+    "mentre, in incognito, si informava su come comprare",
     "mentre, con fare sospetto, stava per pagare",
     "mentre, con voce tremante, chiedeva ad un passante di comprare",
-    "mentre, tutto trafelato, cercava di finalizzare l'acquisto di"
-
+    "mentre, tutt|o| trafelat|o|, cercava di finalizzare l'acquisto di"
   ],
   pl: [
     "mentre compravano",
@@ -522,9 +592,9 @@ const sixthParts = {
     "mentre si fermavano a comprare",
     "mentre erano in fila per l'acquisto di",
     "mentre cercavano di comprare",
-    "mentre effettuavano un acquisto di",
+    "mentre effettuavano l'acquisto di",
     "mentre stavano pagando",
-    "mentre erano intenti ad acquistare",
+    "mentre erano intent|o| ad acquistare",
     "mentre provavano ad acquistare",
     "mentre concludevano un acquisto di",
     "mentre stavano facendo l'ordine di",
@@ -536,17 +606,21 @@ const sixthParts = {
     "mentre stavano per pagare in banconote di piccolo taglio",
     "mentre, parlando con l'accento svedese, chiedevano di comprare",
     "mentre, fingendosi agenti segreti, ordinavano l'acquisto di",
-    "mentre, travestiti da clown, cercavano di comprare",
+    "mentre, travestit|o| da clown, cercavano di comprare",
     "mentre, sotto copertura, stavano per acquistare",
-    "mentre, in incognito, si informavano su come comprare", 
+    "mentre, in incognito, si informavano su come comprare",
     "mentre, con fare sospetto, stavano per pagare",
     "mentre, con voce tremante, chiedevano ad un passante di comprare",
-    "mentre, tutti trafelati, cercavano di finalizzare l'acquisto di"
+    "mentre, tutt|o| trafelat|o|, cercavano di finalizzare l'acquisto di"
   ]
 };
 
+function getSixthParts(g, n) {
+  return sixthTemplates[n].map(t => agree(t, g, n));
+}
+
 /* =========================
-   7) SETTIMA PARTE (OGGETTO) – 11
+   7) SETTIMA PARTE (OGGETTO)
    ========================= */
 const seventhParts = [
   "un set di mutande sataniche",
@@ -561,13 +635,28 @@ const seventhParts = [
   "una tessera della \"Setta dei 9 angoli\"",
   "un'iscrizione ai satanisti",
   "una stampella con i simboli occulti",
-  "set di armi bianche",
-  "delle scarpe Frau numero 42",
+  "un set di armi bianche",
+  "un paio di scarpe Frau numero 42",
   "un kit per il perfetto assassino",
-  "2.5 grammi di DNA di Chiara Poggi"];
+  "2.5 grammi di DNA di Chiara Poggi",
+  "uno scontrino del parcheggio di Vigevano",
+  "delle ali per volare sulla scena del crimine",
+  "una scimitarra",
+  "una katana",
+  "un pugnale vichingo",
+  "un'ascia da battaglia",
+  "un'arma da fuoco",
+  "un lanciafiamme",
+  "un cannone",
+  "un missile",
+  "un carro armato",
+  "un'archiviazione da parte di Venditti",
+  "400.000 lire di cocaina da dare a Maurizio Mosca",
+  "4146 codici per chiamare gratis gli altri agenti segreti"
+];
 
 /* =========================
-   ENGINE SLOT + RIGENERA
+   ENGINE SLOT
    ========================= */
 const slots = [
   document.getElementById("s1"),
@@ -584,20 +673,42 @@ function pick(items) {
   return items[Math.floor(Math.random() * items.length)];
 }
 
-function spin(slot, items, onFinal) {
+// Easing “slot machine”: parte veloce e rallenta progressivamente fino a fermarsi.
+// durationMs controlla quanto dura lo “spin” per singolo slot.
+function spin(slot, items, onFinal, durationMs = 2400) {
   let last = null;
-  const interval = setInterval(() => {
+  const start = performance.now();
+
+  const minDelay = 55;   // velocissimo all'inizio
+  const maxDelay = 240;  // lento verso la fine
+
+  function easeOutCubic(t) {
+    return 1 - Math.pow(1 - t, 3);
+  }
+
+  function tick() {
+    const now = performance.now();
+    const elapsed = now - start;
+    const t = Math.min(1, elapsed / durationMs);
+    const eased = easeOutCubic(t);
+    const delay = Math.round(minDelay + (maxDelay - minDelay) * eased);
+
     last = pick(items);
     slot.textContent = last.text ?? last;
-  }, 200);
 
-  setTimeout(() => {
-    clearInterval(interval);
-    const finalItem = pick(items);
-    slot.textContent = finalItem.text ?? finalItem;
-    slot.classList.add("final");
-    if (onFinal) onFinal(finalItem);
-  }, 1400);
+    if (t < 1) {
+      // piccolo jitter per “meccanicità”
+      const jitter = Math.random() * 18;
+      setTimeout(tick, delay + jitter);
+    } else {
+      const finalItem = pick(items);
+      slot.textContent = finalItem.text ?? finalItem;
+      slot.classList.add("final");
+      if (onFinal) onFinal(finalItem);
+    }
+  }
+
+  tick();
 }
 
 function resetUI() {
@@ -608,74 +719,60 @@ function start() {
   btn.style.display = "none";
   resetUI();
 
-  // 1) fonte -> imposta sourceNumber
+  // Durate leggermente diverse per dare un effetto “slot a colonne”
+  const d1 = 2200 + Math.random() * 900;
+  const d2 = 2300 + Math.random() * 900;
+  const d3 = 2400 + Math.random() * 900;
+  const d4 = 2500 + Math.random() * 900;
+  const d5 = 2600 + Math.random() * 900;
+  const d6 = 2700 + Math.random() * 900;
+  const d7 = 2850 + Math.random() * 900;
+
+  // 1) Fonte
   spin(slots[0], firstParts, (it1) => {
     sourceNumber = it1.number;
+    sourceGender = it1.gender;
 
-    // 2) verbo (dipende dal numero della fonte)
-    spin(slots[1], secondParts[sourceNumber], () => {
+    // 2) Verbo (dipende da Fonte G/N)
+    const verbs = getSecondParts(sourceGender, sourceNumber);
+    spin(slots[1], verbs, () => {
 
-      // 3) soggetto -> imposta subjectGender/subjectNumber
+      // 3) Soggetto
       spin(slots[2], thirdParts, (it3) => {
         subjectGender = it3.gender;
         subjectNumber = it3.number;
 
-        // 4) avvistamento (dipende da genere/numero del soggetto)
-        const fourthParts = buildFourthParts(subjectGender, subjectNumber);
-        spin(slots[3], fourthParts, () => {
+        // 4) Avvistamento (dipende da Soggetto G/N)
+        const sightings = buildFourthParts(subjectGender, subjectNumber);
+        spin(slots[3], sightings, () => {
 
-          // 5) tempo
+          // 5) Tempo
           spin(slots[4], fifthParts, () => {
 
-            // 6) azione (dipende dal numero del soggetto)
-            spin(slots[5], sixthParts[subjectNumber], () => {
+            // 6) Azione (dipende da Soggetto G/N)
+            const actions = getSixthParts(subjectGender, subjectNumber);
+            spin(slots[5], actions, () => {
 
-              // 7) oggetto
+              // 7) Oggetto
               spin(slots[6], seventhParts, () => {
                 btn.textContent = "GENERA UN ALTRO SCOOP";
                 btn.style.display = "inline-block";
-              });
-            });
-          });
-        });
-      });
-    });
-  });
+              }, d7);
+
+            }, d6);
+
+          }, d5);
+
+        }, d4);
+
+      }, d3);
+
+    }, d2);
+
+  }, d1);
 }
 
 btn.addEventListener("click", start);
-
-/* =========================
-   CONTEGGIO COMBINAZIONI
-   ========================= */
-(() => {
-  const part1 = firstParts.length;            // 24
-  const part2_sg = secondParts.sg.length;     // 17
-  const part2_pl = secondParts.pl.length;     // 17
-  const part3 = thirdParts.length;            // 18
-  const part4 = 24;                           // 24
-  const part5 = fifthParts.length;            // 21
-  const part6_sg = sixthParts.sg.length;      // 21
-  const part6_pl = sixthParts.pl.length;      // 21
-  const part7 = seventhParts.length;          // 11
-
-  const sourcesSg = firstParts.filter(x => x.number === "sg").length; // 23
-  const sourcesPl = firstParts.filter(x => x.number === "pl").length; // 1
-
-  const subjectsSg = thirdParts.filter(x => x.number === "sg").length; // 18
-  const subjectsPl = thirdParts.filter(x => x.number === "pl").length; // 0
-
-  const total =
-    (sourcesSg * part2_sg + sourcesPl * part2_pl) *
-    part3 *
-    part4 *
-    part5 *
-    (subjectsSg * part6_sg + subjectsPl * part6_pl) *
-    part7;
-
-  console.log("Opzioni per parte:", { part1, part2_sg, part2_pl, part3, part4, part5, part6_sg, part6_pl, part7 });
-  console.log("Combinazioni totali:", total); // 855,017,856
-})();
 </script>
 </body>
 </html>
